@@ -119,7 +119,7 @@ export function Dashboard({ language = "fr" }: DashboardProps) {
   };
 
   const handleAIAssistantClick = () => {
-    // This will be handled by the parent component
+    console.log('AI Assistant button clicked - dispatching event');
     window.dispatchEvent(new CustomEvent('navigate-to-section', { detail: 'ai-search' }));
   };
 
@@ -240,7 +240,10 @@ export function Dashboard({ language = "fr" }: DashboardProps) {
               </p>
               <Button 
                 className="w-full bg-white text-green-600 hover:bg-green-50"
-                onClick={handleAIAssistantClick}
+                onClick={() => {
+                  console.log('Poser une question button clicked');
+                  window.dispatchEvent(new CustomEvent('navigate-to-section', { detail: 'ai-search' }));
+                }}
               >
                 <Bot className="w-4 h-4 mr-2" />
                 {getText("askQuestion")}
