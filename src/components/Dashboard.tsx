@@ -300,7 +300,7 @@ export function Dashboard({ language = "fr" }: DashboardProps) {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-md transition-shadow cursor-pointer group" onClick={() => window.dispatchEvent(new CustomEvent('navigate-to-section', { detail: 'ai-search' }))}>
+            <Card className="hover:shadow-md transition-shadow cursor-pointer group" onClick={handleAIAssistantClick}>
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <Bot className="w-6 h-6 text-white" />
