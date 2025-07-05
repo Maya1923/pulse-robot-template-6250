@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MainNavigation } from "@/components/MainNavigation";
 import { Footer } from "@/components/Footer";
 import { BreadcrumbNavigation } from "@/components/BreadcrumbNavigation";
@@ -10,6 +10,19 @@ import { ContentRenderer } from "@/components/layout/ContentRenderer";
 const Index = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
   const [language, setLanguage] = useState("fr");
+
+  useEffect(() => {
+    const handleNavigateToSection = (event: CustomEvent) => {
+      console.log('Navigation event received:', event.detail);
+      setActiveSection(event.detail);
+    };
+
+    window.addEventListener('navigate-to-section', handleNavigateToSection as EventListener);
+
+    return () => {
+      window.removeEventListener('navigate-to-section', handleNavigateToSection as EventListener);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen w-full algerian-green-bg flex flex-col">
