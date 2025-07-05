@@ -22,7 +22,13 @@ import {
   Edit,
   Filter,
   Building2,
-  Scale
+  Scale,
+  Star,
+  MessageSquare,
+  UserPlus,
+  TrendingUp,
+  Heart,
+  BookOpen
 } from 'lucide-react';
 
 interface ProcedureCatalogTabProps {
@@ -398,6 +404,254 @@ export function ProcedureCatalogTab({ searchTerm, setSearchTerm, onAddProcedure 
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Nouvelle section: Textes juridiques en vedette */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Star className="w-5 h-5 text-yellow-600" />
+            Textes juridiques en vedette
+          </CardTitle>
+          <CardDescription>
+            Sélection des textes juridiques les plus consultés et importants
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              {
+                title: "Code civil algérien",
+                type: "Code",
+                views: "12,456",
+                date: "Dernière mise à jour: 15/01/2024",
+                description: "Règles fondamentales du droit privé en Algérie",
+                badge: "Tendance"
+              },
+              {
+                title: "Loi de finances 2024",
+                type: "Loi",
+                views: "8,921",
+                date: "Publié: 01/01/2024",
+                description: "Budget de l'État et dispositions fiscales pour 2024",
+                badge: "Nouveau"
+              },
+              {
+                title: "Code du travail",
+                type: "Code",
+                views: "9,876",
+                date: "Dernière mise à jour: 10/12/2023",
+                description: "Relations individuelles et collectives du travail",
+                badge: "Populaire"
+              },
+              {
+                title: "Loi sur l'investissement",
+                type: "Loi",
+                views: "6,543",
+                date: "Dernière mise à jour: 20/11/2023",
+                description: "Cadre juridique pour les investissements en Algérie",
+                badge: "Important"
+              }
+            ].map((text, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow border-l-4 border-l-yellow-500">
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="font-semibold text-lg">{text.title}</h3>
+                        <Badge className="bg-yellow-100 text-yellow-800 text-xs">{text.badge}</Badge>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-2">{text.description}</p>
+                      <div className="flex items-center gap-4 text-xs text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Eye className="w-3 h-3" />
+                          {text.views} vues
+                        </span>
+                        <span>{text.date}</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <Badge variant="outline" className="text-xs">{text.type}</Badge>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" className="flex-1">
+                      <BookOpen className="w-4 h-4 mr-1" />
+                      Consulter
+                    </Button>
+                    <Button variant="outline" size="sm">
+                      <Heart className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Nouvelle section: Témoignages récents */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <MessageSquare className="w-5 h-5 text-blue-600" />
+            Témoignages récents
+          </CardTitle>
+          <CardDescription>
+            Retours d'expérience des utilisateurs de la plateforme
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                name: "Ahmed B.",
+                role: "Avocat",
+                message: "Cette plateforme m'a considérablement aidé dans mes recherches juridiques. L'interface est intuitive et les contenus sont très bien organisés.",
+                rating: 5,
+                date: "Il y a 2 jours"
+              },
+              {
+                name: "Fatima K.",
+                role: "Magistrat",
+                message: "Excellent outil pour la recherche de jurisprudence. Les fonctionnalités de recherche avancée sont particulièrement utiles.",
+                rating: 5,
+                date: "Il y a 1 semaine"
+              },
+              {
+                name: "Mohamed S.",
+                role: "Étudiant en droit",
+                message: "Très pratique pour mes études. Les explications sont claires et les documents sont facilement accessibles.",
+                rating: 4,
+                date: "Il y a 3 jours"
+              }
+            ].map((testimonial, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                      <User className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm">{testimonial.name}</h4>
+                      <p className="text-xs text-gray-500">{testimonial.role}</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-700 mb-3 italic">"{testimonial.message}"</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-4 h-4 ${
+                            i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-xs text-gray-500">{testimonial.date}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Nouvelle section: Contribuez à la base de données */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <UserPlus className="w-5 h-5 text-green-600" />
+            Contribuez à la base de données
+          </CardTitle>
+          <CardDescription>
+            Aidez-nous à enrichir et améliorer la plateforme juridique algérienne
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mt-1">
+                  <Plus className="w-4 h-4 text-green-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">Ajouter des textes juridiques</h4>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Contribuez en ajoutant de nouveaux textes juridiques, lois, décrets ou jurisprudences manquants.
+                  </p>
+                  <Button variant="outline" size="sm" onClick={onAddProcedure}>
+                    <Plus className="w-4 h-4 mr-1" />
+                    Ajouter un texte
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mt-1">
+                  <Edit className="w-4 h-4 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">Corriger des informations</h4>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Signalez les erreurs ou proposez des améliorations aux contenus existants.
+                  </p>
+                  <Button variant="outline" size="sm">
+                    <Edit className="w-4 h-4 mr-1" />
+                    Signaler une erreur
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mt-1">
+                  <MessageSquare className="w-4 h-4 text-purple-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">Partager votre expérience</h4>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Laissez un témoignage pour aider d'autres utilisateurs dans leurs recherches juridiques.
+                  </p>
+                  <Button variant="outline" size="sm">
+                    <MessageSquare className="w-4 h-4 mr-1" />
+                    Laisser un témoignage
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-lg">
+              <div className="text-center mb-4">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <TrendingUp className="w-8 h-8 text-green-600" />
+                </div>
+                <h4 className="font-semibold text-lg mb-2">Impact de vos contributions</h4>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">Textes ajoutés ce mois</span>
+                  <span className="font-semibold text-green-600">+127</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">Corrections validées</span>
+                  <span className="font-semibold text-blue-600">+89</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">Contributeurs actifs</span>
+                  <span className="font-semibold text-purple-600">156</span>
+                </div>
+              </div>
+              
+              <div className="mt-4 pt-4 border-t border-white">
+                <p className="text-xs text-gray-500 text-center">
+                  Rejoignez notre communauté de contributeurs et aidez à construire la plus grande base de données juridique algérienne.
+                </p>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
