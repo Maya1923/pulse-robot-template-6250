@@ -116,18 +116,14 @@ export function UnifiedSearchInterface({
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                           {filter.label}
                         </label>
-                        <select
-                          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                        <EnhancedInput
                           value={filters[filter.id] || ""}
                           onChange={(e) => handleFilterChange(filter.id, e.target.value)}
-                        >
-                          <option value="">Tous</option>
-                          {filter.options.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
+                          placeholder={`Filtrer par ${filter.label.toLowerCase()}...`}
+                          context="search"
+                          enableVoice={true}
+                          className="w-full"
+                        />
                       </div>
                     ))}
                   </div>

@@ -1,12 +1,16 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Activity } from 'lucide-react';
+import { EnhancedInput } from '@/components/common/EnhancedInput';
+import { Activity, Search } from 'lucide-react';
+import { useState } from 'react';
 
 interface ActivityHeatmapProps {
   period: string;
 }
 
 export function ActivityHeatmap({ period }: ActivityHeatmapProps) {
+  const [searchQuery, setSearchQuery] = useState('');
+
   // Génération de données simulées pour la heatmap
   const generateHeatmapData = () => {
     const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
@@ -41,6 +45,24 @@ export function ActivityHeatmap({ period }: ActivityHeatmapProps) {
 
   return (
     <div className="space-y-6">
+      {/* Barre de recherche */}
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-4">
+            <div className="flex-1">
+              <EnhancedInput
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Rechercher dans les activités..."
+                context="search"
+                enableVoice={true}
+              />
+            </div>
+            <Search className="w-5 h-5 text-gray-400" />
+          </div>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
