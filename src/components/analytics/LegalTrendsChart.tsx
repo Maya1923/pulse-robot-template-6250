@@ -1,7 +1,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { EnhancedInput } from '@/components/common/EnhancedInput';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
-import { TrendingUp } from 'lucide-react';
+import { TrendingUp, Search, Filter } from 'lucide-react';
+import { useState } from 'react';
 
 interface LegalTrendsChartProps {
   period: string;
@@ -9,6 +11,9 @@ interface LegalTrendsChartProps {
 }
 
 export function LegalTrendsChart({ period, detailed = false }: LegalTrendsChartProps) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterQuery, setFilterQuery] = useState('');
+
   // Données simulées basées sur la période
   const generateData = () => {
     const baseData = [
@@ -27,6 +32,36 @@ export function LegalTrendsChart({ period, detailed = false }: LegalTrendsChartP
   if (detailed) {
     return (
       <div className="space-y-6">
+        {/* Search and Filter Section */}
+        <Card>
+          <CardContent className="pt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-center gap-2">
+                <Search className="w-4 h-4 text-gray-400" />
+                <EnhancedInput
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Rechercher dans les tendances..."
+                  context="search"
+                  enableVoice={true}
+                  className="flex-1"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Filter className="w-4 h-4 text-gray-400" />
+                <EnhancedInput
+                  value={filterQuery}
+                  onChange={(e) => setFilterQuery(e.target.value)}
+                  placeholder="Filtrer par type de texte..."
+                  context="legal"
+                  enableVoice={true}
+                  className="flex-1"
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -100,6 +135,15 @@ export function LegalTrendsChart({ period, detailed = false }: LegalTrendsChartP
           <TrendingUp className="w-5 h-5 text-blue-600" />
           Tendances Juridiques
         </CardTitle>
+        <div className="mt-4">
+          <EnhancedInput
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Rechercher dans les tendances..."
+            context="search"
+            enableVoice={true}
+          />
+        </div>
       </CardHeader>
       <CardContent>
         <div className="h-64">

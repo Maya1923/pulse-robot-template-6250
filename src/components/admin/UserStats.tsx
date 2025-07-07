@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, UserCheck, Shield, UserCog } from 'lucide-react';
+import { EnhancedInput } from '@/components/common/EnhancedInput';
+import { Users, UserCheck, Shield, UserCog, Search } from 'lucide-react';
 
 interface UserStats {
   totalUsers: number;
@@ -19,6 +20,7 @@ export function UserStats() {
     citoyenCount: 0
   });
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchStats();
@@ -82,37 +84,76 @@ export function UserStats() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        {[1, 2, 3, 4].map((i) => (
-          <Card key={i}>
-            <CardContent className="p-6">
-              <div className="animate-pulse">
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div className="h-8 bg-gray-200 rounded w-1/2"></div>
+      <div className="space-y-6">
+        {/* Search Section */}
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-4">
+              <div className="flex-1">
+                <EnhancedInput
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Rechercher des utilisateurs..."
+                  context="search"
+                  enableVoice={true}
+                />
               </div>
-            </CardContent>
-          </Card>
-        ))}
+              <Search className="w-5 h-5 text-gray-400" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map((i) => (
+            <Card key={i}>
+              <CardContent className="p-6">
+                <div className="animate-pulse">
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-8 bg-gray-200 rounded w-1/2"></div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      {statCards.map((stat) => (
-        <Card key={stat.title}>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">{stat.title}</p>
-                <p className="text-3xl font-bold">{stat.value}</p>
-              </div>
-              <stat.icon className={`w-8 h-8 ${stat.color}`} />
+    <div className="space-y-6">
+      {/* Search Section */}
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-4">
+            <div className="flex-1">
+              <EnhancedInput
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Rechercher des utilisateurs..."
+                context="search"
+                enableVoice={true}
+              />
             </div>
-          </CardContent>
-        </Card>
-      ))}
+            <Search className="w-5 h-5 text-gray-400" />
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {statCards.map((stat) => (
+          <Card key={stat.title}>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">{stat.title}</p>
+                  <p className="text-3xl font-bold">{stat.value}</p>
+                </div>
+                <stat.icon className={`w-8 h-8 ${stat.color}`} />
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
-
